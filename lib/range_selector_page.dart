@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_foundation/range_selector_form.dart';
 
 class RangeSelectorPage extends StatefulWidget {
   RangeSelectorPage({Key? key}) : super(key: key);
@@ -19,25 +20,10 @@ class _RangeSelectorPageState extends State<RangeSelectorPage> {
       appBar: AppBar(
         title: Text("Range Selector"),
       ),
-      body: Form(
-        key: formKey,
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              RangeSelectorTextFormField(
-                labelText: 'Minimum',
-                intValueSetter: (value) => _min = value,
-              ),
-              const SizedBox(height: 16),
-              RangeSelectorTextFormField(
-                labelText: 'Maximum',
-                intValueSetter: (value) => _max = value,
-              ),
-            ],
-          ),
-        ),
+      body: RangeSelectorForm(
+        formKey: formKey,
+        minValueSetter: (value) => _min = value,
+        maxValueSetter: (value) => _max = value,
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.arrow_right),
@@ -49,43 +35,6 @@ class _RangeSelectorPageState extends State<RangeSelectorPage> {
           }
         },
       ),
-    );
-  }
-}
-
-class RangeSelectorTextFormField extends StatelessWidget {
-  const RangeSelectorTextFormField({
-    Key? key,
-    required this.labelText,
-    // used to lift state up so that the value within this widget gets passed up to the form widget
-    required this.intValueSetter,
-  }) : super(key: key);
-
-  final String labelText;
-  // used to lift state up so that the value within this widget gets passed up to the form widget
-  final void Function(int value) intValueSetter;
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      decoration: InputDecoration(
-        border: OutlineInputBorder(),
-        labelText: labelText,
-      ),
-      keyboardType: TextInputType.numberWithOptions(
-        decimal: false,
-        signed: true,
-      ),
-      validator: (value) {
-        // checks to see if the value is null or if unable to parse to an int
-        if (value == null || int.tryParse(value) == null) {
-          return 'Must be an int';
-        } else {
-          // returning null means no error message
-          return null;
-        }
-      },
-      onSaved: (newValue) => intValueSetter(int.parse(newValue ?? '')),
     );
   }
 }
