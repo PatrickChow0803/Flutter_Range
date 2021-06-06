@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_foundation/randomizer_page.dart';
 import 'package:flutter_foundation/range_selector_form.dart';
 
 class RangeSelectorPage extends StatefulWidget {
@@ -32,6 +33,11 @@ class _RangeSelectorPageState extends State<RangeSelectorPage> {
           if (formKey.currentState?.validate() == true) {
             // what actually makes the min and max variables store their values
             formKey.currentState?.save();
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => RandomizerPage(min: _min, max: _max),
+              ),
+            );
           }
         },
       ),
