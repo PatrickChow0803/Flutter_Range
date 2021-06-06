@@ -8,6 +8,9 @@ class RangeSelectorPage extends StatefulWidget {
 }
 
 class _RangeSelectorPageState extends State<RangeSelectorPage> {
+  int _min = 0;
+  int _max = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,10 +25,12 @@ class _RangeSelectorPageState extends State<RangeSelectorPage> {
             children: [
               RangeSelectorTextFormField(
                 labelText: 'Minimum',
+                intValueSetter: (value) => _min = value,
               ),
               const SizedBox(height: 16),
               RangeSelectorTextFormField(
                 labelText: 'Maximum',
+                intValueSetter: (value) => _max = value,
               ),
             ],
           ),
@@ -42,10 +47,14 @@ class _RangeSelectorPageState extends State<RangeSelectorPage> {
 class RangeSelectorTextFormField extends StatelessWidget {
   const RangeSelectorTextFormField({
     Key? key,
-    required String this.labelText,
+    required this.labelText,
+    // used to lift state up so that the value within this widget gets passed up to the form widget
+    required this.intValueSetter,
   }) : super(key: key);
 
   final String labelText;
+  // used to lift state up so that the value within this widget gets passed up to the form widget
+  final void Function(int value) intValueSetter;
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +67,7 @@ class RangeSelectorTextFormField extends StatelessWidget {
         decimal: false,
         signed: true,
       ),
+      onSaved: (newValue) => intValueSetter(int.parse(newValue ?? '')),
     );
   }
 }
