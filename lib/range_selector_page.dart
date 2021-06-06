@@ -67,6 +67,15 @@ class RangeSelectorTextFormField extends StatelessWidget {
         decimal: false,
         signed: true,
       ),
+      validator: (value) {
+        // checks to see if the value is null or if unable to parse to an int
+        if (value == null || int.tryParse(value) == null) {
+          return 'Must be an int';
+        } else {
+          // returning null means no error message
+          return null;
+        }
+      },
       onSaved: (newValue) => intValueSetter(int.parse(newValue ?? '')),
     );
   }
