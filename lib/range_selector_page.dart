@@ -15,7 +15,35 @@ class _RangeSelectorPageState extends State<RangeSelectorPage> {
         title: Text("Range Selector"),
       ),
       body: Form(
-        child: Container(),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextFormField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Minimum',
+                ),
+                keyboardType: TextInputType.numberWithOptions(
+                  decimal: false,
+                  signed: true,
+                ),
+              ),
+              const SizedBox(height: 16),
+              TextFormField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Minimum',
+                ),
+                keyboardType: TextInputType.numberWithOptions(
+                  decimal: false,
+                  signed: true,
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
