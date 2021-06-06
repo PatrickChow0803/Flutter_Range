@@ -8,8 +8,8 @@ class RandomizerChangeNotifier extends ChangeNotifier {
 
   int? get generatedNumber => _generatedNumber;
 
-  final int min = 0;
-  final int max = 0;
+  int min = 0;
+  int max = 0;
 
   void generateRandomNumber() {
     _generatedNumber = min + _randomGenerator.nextInt(max + 1 - min);
